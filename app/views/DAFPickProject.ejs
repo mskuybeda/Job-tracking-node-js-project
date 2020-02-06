@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include templates/styler.ejs %>
+  </head>
+<body>
+  <% include templates/header.ejs %>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <form method="POST" action="/DAFViewForm" id="form">
+                    <div class="col-5" style="padding: 0px 0px 40px;">
+                        <label for="sel1">Select Project Number:</label>
+                        <input class="form-control" id="sel1" name="sellist1" list="projects"> 
+                        <datalist id="projects">
+                            <% fileList.forEach(item => { %>
+                            <option value="<%= item %>">
+                            <% }); %>
+                        </datalist>
+                    </div>
+                    <div class="col-5" style="padding: 0px 0px 40px;">
+                        <label for="sel2">Select Part Number:</label>
+                        <input class="form-control" id="sel2" name="sellist2" list="partNumbers">
+                        <datalist id="partNumbers"></datalist>
+                    </div>
+                    <div class="row" style="padding: 100px 0px 0px;">
+                        <div class="col-5">
+                            <a class="button" data-toggle="modal" data-target="#myModal" style="color:white">Submit</a>
+                        </div>
+                        <div class="col-2">
+                            <a href="/" class="button">Cancel</a>
+                        </div>
+                        <div class="col-3">
+                            <a href="/ManualInput" class="button">Manual Input</a>
+                        </div>
+                    </div>
+                    </form>
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="color:red; font-weight:bold" id="FormModalLabel">Attention</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><b>DO NOT FORGET TO REVIEW CHANGES BEFORE SUBMITTING</b></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/DAFViewForm" id="sendButton">
+                                        <button type="button" class="btn btn-primary btn-lg">Proceed</button>
+                                    </a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+$('#sel1').change(function() {
+  let val = $('#sel1').val();
+  $('#partNumbers').empty();
+  if (val.length != 0)
+    $.get('/api/getPartNumbers', { 'project': val }, function (d) {
+        $.each(d, function(key, value) {
+          $('#partNumbers')
+          .append($('<option>', { 'value' : value })
+          .text(value));
+        });
+    }, 'json');
+});
+$('#sendButton').click(function() {
+  $('#form').submit();
+  return false;
+});
+
+        </script>
+</body>
+
+</html>

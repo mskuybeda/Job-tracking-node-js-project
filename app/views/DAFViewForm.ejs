@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <% include templates/styler.ejs %>
+  </head>
+
+<body>
+    <% include templates/header.ejs %>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <p><b>Project: <%= project %></b><br>
+                       <b>Part number: <%= partNumber %></b></p>
+                    <form method="POST" action="/api/changePartNumber" style="padding: 0px 0px 100px;" id="form">
+                      <input type="hidden" id="project" name="project" value="<%= project %>">
+                      <input type="hidden" id="partNumber" name="partNumber" value="<%= partNumber %>">
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputSub-Con">Sub-Con</label>
+                                <select class="form-control" id="inputSub-Con" name="subcon">
+                                    <option value="" selected></option>
+                                    <option value="Received-CUT">Received-CUT</option>
+                                    <option value="Received-LATHE">Received-LATHE</option>
+                                    <option value="Received-MILL">Received-MILL</option>
+                                    <option value="Received-WELD">Received-WELD</option>
+                                    <option value="Received-ASSY">Received-ASSY</option>
+                                  </select>
+                              <!--  <input type="Sub-Con" class="form-control" id="inputSub-Con" name="subcon" placeholder="Sub-Con" value="<%= subcon %>"> -->
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputVendor">Vendor Order Placed</label>
+                                <select class="form-control" id="inputVendor" name="vendor">
+                                    <option value="" selected></option>
+                                    <option value="YES">YES</option>
+                                    <option value="NO">NO</option>
+                                  </select>
+                              <!--  <input type="Vendor" class="form-control" id="inputVendor" placeholder="Vendor Order Placed" name="vendor" value="<%= vendor %>"> -->
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputCut">Cut</label>
+                                <select class="form-control" id="inputCut" name="cut">
+                                    <option value="" selected></option>
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
+                                    <option value="COMPLETED - LATHE SHELF">COMPLETED - LATHE SHELF</option>
+                                    <option value="COMPLETED - MILL SHELF">COMPLETED - MILL SHELF</option>
+                                    <option value="COMPLETED - WELDING AREA">COMPLETED - WELDING AREA</option>
+                                  </select>
+                               <!-- <input type="Cut" class="form-control" id="inputCut" placeholder="Cut" name="cut" value="<%= cut %>"> -->
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputSupplier">Supplier</label>
+                                <input type="Supplier" class="form-control" id="inputSupplier" placeholder="Supplier" name="supplier" value="<%= supplier %>"> 
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputLathe">Lathe</label>
+                                <select class="form-control" id="inputLathe" name="lathe">
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
+                                    <option value="COMPLETED - MILL SHELF">COMPLETED - MILL SHELF</option>
+                                    <option value="COMPLETED - WELDING AREA">COMPLETED - WELDING AREA</option>
+                                    <option value="COMPLETED - ASSY AREA">COMPLETED - ASSY AREA</option>
+                                  </select>
+                               <!-- <input type="Lathe" class="form-control" id="inputLathe" placeholder="Lathe" name="lathe" value="<%= lathe %>"> -->
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputLocation">Material Location</label>
+                                <select class="form-control" id="inputLocation" name="location">
+                                    <option value="" selected></option>
+                                    <option value="Received-CUT">Received-CUT</option>
+                                    <option value="Received-LATHE">Received-LATHE</option>
+                                    <option value="Received-MILL">Received-MILL</option>
+                                    <option value="Received-WELD">Received-WELD</option>
+                                    <option value="Received-ASSY">Received-ASSY</option>
+                                  </select>
+                               <!-- <input type="Location" class="form-control" id="inputLocation" placeholder="Material Location" name="location" value="<%= location %>"> -->
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputMill">Mill</label>
+                                <select class="form-control" id="inputMill" name="mill">
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
+                                    <option value="COMPLETED - LATHE SHELF">COMPLETED - LATHE SHELF</option>
+                                    <option value="COMPLETED - WELDING AREA">COMPLETED - WELDING AREA</option>
+                                    <option value="COMPLETED - ASSY AREA">COMPLETED - ASSY AREA</option>
+                                  </select>
+                               <!-- <input type="Mill" class="form-control" id="inputMill" placeholder="Mill" name="mill" value="<%= mill %>"> -->
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputWeld">Weld</label>
+                                <select class="form-control" id="inputWeld" name="weld">
+                                    <option value="IN PROGRESS">IN PROGRESS</option>
+                                    <option value="COMPLETED - LATHE SHELF">COMPLETED - LATHE SHELF</option>
+                                    <option value="COMPLETED - MILL SHELF">COMPLETED - MILL SHELF</option>
+                                    <option value="COMPLETED - ASSY AREA">COMPLETED - ASSY AREA</option>
+                                  </select>
+                                <!-- <input type="Weld" class="form-control" id="inputWeld" name="weld" placeholder="Weld" value="<%= weld %>"> -->
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputAssy">Assy</label>
+                                <select class="form-control" id="inputAssy" name="assy">
+                                  <option value="" selected></option>
+                                  <option value="In progress">In progress</option>
+                                  <option value="Complete">Complete</option>
+                                </select>
+                                <!--<input type="Assy" class="form-control" id="inputAssy" name="assy" placeholder="Assy" value="<%= assy %>"> -->
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="row" style="padding: 100px 0px 0px;">
+                        <div class="col-5">
+                            <a class="button" data-toggle="modal" data-target="#myModal" style="color:white">Submit</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/DAFPickProject" class="button">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="color:green; font-weight:bold" id="FormModalLabel">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to submit changes</p>
+                        <p class="error"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <span>
+                            Please wait!
+                            <img src="/images/load.gif" style="width: 48px;">
+                        </span>
+                        <button id="sendButton" type="button" class="btn btn-default btn-lg">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+$('#inputAssy').val('<%= assy %>');
+$('#inputSub-Con').val('<%= subcon %>');
+$('#inputVendor').val('<%= vendor %>');
+$('#inputLocation').val('<%= location %>');
+$('#inputMill').val('<%= mill %>');
+$('#inputWeld').val('<%= weld %>');
+$('#inputLathe').val('<%= lathe %>');
+$('#inputCut').val('<%= cut %>');
+$('#sendButton').click(function() {
+  $.post('/api/changePartNumber', {
+    project:    $('#project').val(),
+    partNumber: $('#partNumber').val(),
+    subcon:     $('#inputSub-Con').val(),
+    vendor:     $('#inputVendor').val(),
+    cut:        $('#inputCut').val(),
+    supplier:   $('#inputSupplier').val(),
+    location:   $('#inputLocation').val(),
+    lathe:      $('#inputLathe').val(),
+    mill:       $('#inputMill').val(),
+    weld:       $('#inputWeld').val(),
+    assy:       $('#inputAssy').val()
+  }, function (data) {
+      if (data === 'ok')
+        location.href = '/';
+      else {
+        $('.modal .error').html(data);
+        $('.modal-footer span').hide();
+        $('.modal-footer button').show();
+      }
+  });
+  $('.modal .error').html('');
+  $('.modal-footer span').show();
+  $('.modal-footer button').hide();
+  return false;
+});
+        </script>
+</body>
+
+</html>

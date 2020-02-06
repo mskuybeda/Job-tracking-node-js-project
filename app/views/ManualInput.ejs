@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include templates/styler.ejs %>
+  </head>
+<body>
+  <% include templates/header.ejs %>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <form method="POST" action="/ManualInputForm" id="form">
+                        <div class="col-5" style="padding: 0px 0px 40px;">
+                            <label for="sel1">Select Project Number:</label>
+                            <input class="form-control" id="sel1" name="sellist1" list="projects"> 
+                            <datalist id="projects">
+                                <% fileList.forEach(item => { %>
+                                <option value="<%= item %>">
+                                <% }); %>
+                            </datalist>
+                        </div>
+                    
+                    <div class="row" style="padding: 100px 0px 0px;">
+                        <div class="col-5">
+                            <a class="button" data-toggle="modal" data-target="#myModal" style="color:white">Submit</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/" class="button">Cancel</a>
+                        </div>
+                    </div>
+                    </form>
+                    
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="color:red; font-weight:bold" id="FormModalLabel">Attention</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p><b>MANUALLY INPUT PART NUMBER ONLY IF IT IS NOT AVAILABLE IN PROJECT STATUS</b>
+                                        <br> <b>PLEASE VERIFY BEFORE SAVING ANY CHANGES! </b></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="/ManualInputForm" id="sendButton">
+                                        <button type="button" class="btn btn-primary btn-lg">Proceed</button>
+                                    </a>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script>
+$('#sendButton').click(function() {
+  $('#form').submit();
+  return false;
+});
+        </script>
+</body>
+
+</html>

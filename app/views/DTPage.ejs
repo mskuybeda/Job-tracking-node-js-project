@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <% include templates/styler.ejs %>
+  </head>
+
+<body>
+    <% include templates/header.ejs %>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                  <form method="POST" action="/DTTable" id="form">
+                    <div class="col-5" style="padding: 0px 0px 40px;">
+                        <label for="sel1">Select Project Number:</label>
+                        <input class="form-control" id="sel1" name="project" list="projects"> 
+                        <datalist id="projects">
+                            <% fileList.forEach(item => { %>
+                            <option value="<%= item %>">
+                            <% }); %>
+                        </datalist>
+                    </div>
+                
+ 
+                    <div class="col-lg row" style="padding: 100px 0px 0px;">
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check1" name="cut">
+                            <label class="custom-control-label" for="Check1">CUT</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check2" name="lathe">
+                            <label class="custom-control-label" for="Check2">LATHE</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check3" name="mill">
+                            <label class="custom-control-label" for="Check3">MILL</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check4" name="weld">
+                            <label class="custom-control-label" for="Check4">WELD</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check5" name="subcon">
+                            <label class="custom-control-label" for="Check5">SUB-CON</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-sm">
+                            <input type="checkbox" class="custom-control-input" id="Check6" name="assy">
+                            <label class="custom-control-label" for="Check6">ASSY</label>
+                        </div>
+                    </div>
+                  </form>
+
+                    <div class="row" style="padding: 100px 0px 0px;">
+                        <div class="col-5">
+                            <a href="/DTTable" class="button" id="sendButton">Submit</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/" class="button">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+$('#sendButton').click(function() {
+  $('#form').submit();
+  return false;
+});
+        </script>
+</body>
+
+</html>

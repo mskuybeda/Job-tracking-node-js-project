@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <% include templates/styler.ejs %>
+  </head>
+
+<body>
+    <% include templates/header.ejs %>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg">
+                    <p><b>Project: <%= project %></b><br>
+                    <form method="POST" action="/api/addPartNumber" style="padding: 0px 0px 100px;" id="form">
+                        <input type="hidden" id="project" name="project" value="<%= project %>">
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputPartNum">Part Number</label>
+                                <input class="form-control" id="inputPartNum" name="partNumber" placeholder="Part Number" value="">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="inputDesc">Description</label>
+                                <input class="form-control" id="inputDesc" name="desc" placeholder="Description" value="">
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputProject">Project</label>
+                                <input class="form-control" id="inputProject" name="proj" placeholder="Project" value="">
+                            </div>
+    
+                            <div class="form-group col-md-4">
+                                <label for="inputSub-Con">Sub-Con</label>
+                                <input class="form-control" id="inputSub-Con" name="subcon" placeholder="Sub-Con" value="">
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputCut">Cut</label>
+                                <input class="form-control" id="inputCut" placeholder="Cut" name="cut" value="">
+                            </div>
+                        
+                            <div class="form-group col-md-4">
+                                <label for="inputLathe">Lathe</label>
+                                <input type="Lathe" class="form-control" id="inputLathe" placeholder="Lathe" name="lathe" value="">
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputMill">Mill</label>
+                                <input class="form-control" id="inputMill" placeholder="Mill" name="mill" value="">
+                            </div>
+                       
+                            <div class="form-group col-md-4">
+                                <label for="inputWeld">Weld</label>
+                                <input class="form-control" id="inputWeld" name="weld" placeholder="Weld" value="">
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-between">
+                            <div class="form-group col-md-4">
+                                <label for="inputAssy">Assy</label>
+                                <input class="form-control" id="inputAssy" name="assy" placeholder="Assy" value="">
+                            </div>
+                        </div>
+
+                    </form>
+                    <div class="row" style="padding: 100px 0px 0px;">
+                        <div class="col-5">
+                            <a class="button" data-toggle="modal" data-target="#myModal" style="color:white">Submit</a>
+                        </div>
+                        <div class="col-6">
+                            <a href="/DAFPickProject" class="button">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="FormModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="color:green; font-weight:bold" id="FormModalLabel">Confirmation</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Do you want to submit changes</p>
+                        <p class="error"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <span>
+                            Please wait!
+                            <img src="/images/load.gif" style="width: 48px;">
+                        </span>
+                        <button id="sendButton" type="button" class="btn btn-default btn-lg">Yes</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+$('#sendButton').click(function() {
+  $.post('/api/addPartNumber', {
+    project:    $('#project').val(),
+    partNumber: $('#inputPartNum').val(),
+    subcon:     $('#inputSub-Con').val(),
+    cut:        $('#inputCut').val(),
+    lathe:      $('#inputLathe').val(),
+    mill:       $('#inputMill').val(),
+    weld:       $('#inputWeld').val(),
+    assy:       $('#inputAssy').val()
+  }, function (data) {
+      if (data === 'ok')
+        location.href = '/';
+      else {
+        $('.modal .error').html(data);
+        $('.modal-footer span').hide();
+        $('.modal-footer button').show();
+      }
+  });
+  $('.modal .error').html('');
+  $('.modal-footer span').show();
+  $('.modal-footer button').hide();
+  return false;
+});
+
+        </script>
+</body>
+
+</html>
