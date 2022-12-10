@@ -13,7 +13,7 @@
     "ejs": "^2.7.1",
     "excel4node": "^1.7.2",
     "exceljs": "^3.5.0",
-    "express": "~4.16.1",
+    "express": "~4.17.3",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1"
